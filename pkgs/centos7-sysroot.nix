@@ -6,7 +6,7 @@
 }:
 
 stdenvNoCC.mkDerivation {
-  pname = "x86_64-linux-centos7-sysroot";
+  pname = "x86_64-unknown-linux-gnu217-centos7-sysroot";
   version = "2.17";
 
   srcs = [

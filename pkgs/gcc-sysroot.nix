@@ -8,22 +8,17 @@
   zlib,
   libiconv,
   gettext,
-  x86_64-linux-centos7-sysroot,
+  centos7-sysroot,
+  gcc15,
 }:
 
 let
-  version = "15.2.0";
   targetTriple = "x86_64-unknown-linux-gnu";
 in
 
 stdenv.mkDerivation {
-  pname = "x86_64-linux-gcc-glibc217-sysroot";
-  inherit version;
-
-  src = fetchurl {
-    url = "https://ftpmirror.gnu.org/gcc/gcc-${version}/gcc-${version}.tar.xz";
-    hash = "sha256-Q4/ZloJrDIJIWinaA6ctcdbjVBqD7HAt9Ccfb+Al0k4=";
-  };
+  pname = "x86_64-unknown-linux-gnu217-gcc-sysroot";
+  inherit (gcc15.cc) src version;
 
   hardeningDisable = [ "all" ];
 
@@ -48,7 +43,7 @@ stdenv.mkDerivation {
     "--disable-multilib"
     "--disable-nls"
     "--disable-libstdcxx-pch"
-    "--with-sysroot=${x86_64-linux-centos7-sysroot}"
+    "--with-sysroot=${centos7-sysroot}"
     "--target=${targetTriple}"
     "--with-system-zlib"
   ];

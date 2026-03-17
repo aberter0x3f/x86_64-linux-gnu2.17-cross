@@ -1,5 +1,5 @@
 {
-  description = "Cross-compile toolchain for x86_64-unknown-linux-gnu with glibc 2.17";
+  description = "Cross-compile toolchain for x86_64-unknown-linux-gnu2.17";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -22,20 +22,20 @@
         let
           pkgs = import nixpkgs { inherit system; };
 
-          x86_64-linux-centos7-sysroot = pkgs.callPackage ./pkgs/x86_64-linux-centos7-sysroot.nix { };
+          centos7-sysroot = pkgs.callPackage ./pkgs/centos7-sysroot.nix { };
 
-          x86_64-linux-gcc-glibc217-sysroot = pkgs.callPackage ./pkgs/x86_64-linux-gcc-glibc217-sysroot.nix {
-            inherit x86_64-linux-centos7-sysroot;
+          gcc-sysroot = pkgs.callPackage ./pkgs/gcc-sysroot.nix {
+            inherit centos7-sysroot;
           };
 
-          x86_64-linux-clang-glibc217 = pkgs.callPackage ./pkgs/x86_64-linux-clang-glibc217.nix {
-            inherit x86_64-linux-centos7-sysroot x86_64-linux-gcc-glibc217-sysroot;
+          clang = pkgs.callPackage ./pkgs/clang.nix {
+            inherit centos7-sysroot gcc-sysroot;
             llvmPackages = pkgs.llvmPackages_21;
           };
         in
         {
-          inherit x86_64-linux-centos7-sysroot x86_64-linux-gcc-glibc217-sysroot x86_64-linux-clang-glibc217;
-          default = x86_64-linux-clang-glibc217;
+          inherit centos7-sysroot gcc-sysroot clang;
+          default = clang;
         }
       );
     };
