@@ -1,7 +1,6 @@
 {
   stdenv,
   pkgsCross,
-  fetchurl,
   gmp,
   libmpc,
   mpfr,
