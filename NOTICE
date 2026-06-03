@@ -1,0 +1,8 @@
+x86_64-linux-gnu2.17-cross
+Copyright 2025-present aberter0x3f
+
+This product includes software developed by aberter0x3f.
+
+This distribution also fetches and repackages third-party CentOS 7 RPM
+artifacts for sysroot construction. Those third-party components remain
+subject to their own licenses and notices.
